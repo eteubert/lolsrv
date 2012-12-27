@@ -68,6 +68,17 @@
                     <h2>Recent Podlove Publisher Commits</h2>
                 </div>
             </div>
+            <div class="row">
+                <% @commits.each do |commit| %>
+                    <% if commit.has_image? %>
+                        <div class="span4">
+                            <div class="message">
+                                <img src="<%= commit.file_url %>" alt="<%= commit.message %>" title="<%= commit.message %>" width="320" height="240" />
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
 
             <hr>
 
