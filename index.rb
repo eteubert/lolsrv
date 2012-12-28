@@ -32,7 +32,7 @@ mongo_db   = Mongo::MongoClient.new('localhost', 27017).db('lolcommits')
 mongo_grid = Mongo::Grid.new(mongo_db)
 
 get '/' do
-	@commits = Commit.all
+	@commits = Commit.all.reverse
 	erb :index
 end
 
