@@ -48,3 +48,9 @@ get '/fetch' do
 
 	"fetching complete"
 end
+
+post '/uplol' do
+  File.open(params['lol'][:filename], "w") do |f|
+    return "File " + params['lol'][:filename] + " (" + params['lol'][:tempfile].size.to_s + " Bytes) uploaded!"
+  end
+end
