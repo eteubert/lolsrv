@@ -47,6 +47,11 @@ get '/lol/:sha' do |sha|
 	end
 end
 
+get '/lols' do
+  commits = Commit.all
+  commits.to_json(:only => [:sha])
+end
+
 post '/uplol' do
 	Commit.create(
 		sha:      params['sha'],
