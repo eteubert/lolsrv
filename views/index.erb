@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>LOLCOMMITZ!!11leven</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -71,10 +71,8 @@
             <div class="row">
                 <% @commits.each do |commit| %>
                     <% if commit.has_image? %>
-                        <div class="span4">
-                            <div class="message">
-                                <img src="<%= commit.file_url %>" alt="<%= commit.message %>" title="<%= commit.message %>" width="320" height="240" />
-                            </div>
+                        <div class="span4" style="margin-bottom: 20px">
+                            <img src="<%= commit.file_url %>" alt="<%= commit.message %>" title="<%= commit.message %>" width="320" height="240" />
                         </div>
                     <% end %>
                 <% end %>

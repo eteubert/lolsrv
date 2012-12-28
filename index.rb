@@ -31,17 +31,18 @@ get '/' do
 end
 
 get '/fetch' do
+	Commit.all.destroy
 	commits = Octokit.commits "eteubert/podlove"
 	commits.each do |commit|
 		sha = commit.sha
 
-		if sha && !Commit.all(:sha => sha).count
+		# if sha && !Commit.all(:sha => sha).count
 			Commit.create(
 				sha: commit.sha,
 				url: commit.url,
 				message: commit.commit.message
 			)
-		end
+		# end
 
 	end
 
