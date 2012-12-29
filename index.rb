@@ -1,9 +1,7 @@
-require 'sinatra'
-require 'data_mapper'
-require 'octokit'
-require 'pp'
-require 'mongo'
-require 'bson'
+require "bundler"
+Bundler.require
+
+require "pp"
 
 class Commit
 	include DataMapper::Resource
@@ -23,13 +21,22 @@ class Commit
 	end
 end
 
-DataMapper::Logger.new($stdout, :debug)
-DataMapper::Model.raise_on_save_failure = true
-DataMapper.setup(:default, "sqlite://#{Dir.pwd}/development.db")
-DataMapper.auto_upgrade!
+mongo_grid = nil
 
-mongo_db   = Mongo::MongoClient.new('localhost', 27017).db('lolcommits')
-mongo_grid = Mongo::Grid.new(mongo_db)
+configure :development do
+  DataMapper::Logger.new($stdout, :debug)
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+end
+
+configure :production do
+  DataMapper.setup(:default, ENV['DATABASE_URL'])
+end
+
+configure do
+  DataMapper.auto_upgrade!
+  mongo_db   = Mongo::MongoClient.new('localhost', 27017).db('lolcommits')
+  mongo_grid = Mongo::Grid.new(mongo_db)
+end
 
 get '/' do
 	@commits = Commit.all.reverse
@@ -43,6 +50,7 @@ get '/lol/:sha' do |sha|
 		response['Cache-Control'] = "public, max-age=60"
 		file.read
 	rescue Exception => e
+	  pp e
 		raise Sinatra::NotFound
 	end
 end
