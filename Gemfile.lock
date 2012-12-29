@@ -8,6 +8,8 @@ GEM
     bcrypt-ruby (3.0.1)
     bson (1.8.0)
       activesupport
+    bson_ext (1.8.0)
+      bson (~> 1.8.0)
     daemons (1.1.9)
     data_mapper (1.2.0)
       dm-aggregates (~> 1.2.0)
@@ -104,6 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   bson
+  bson_ext
   data_mapper
   dm-postgres-adapter
   dm-sqlite-adapter
