@@ -46,8 +46,10 @@ end
 
 DataMapper.auto_upgrade!
 mongo_grid = Mongo::Grid.new(mongo_db)
+config = YAML.load(File.open('config.yaml'))
 
 get '/' do
+  @repo = config['github_repo']
 	@commits = Commit.all.reverse
 	erb :index
 end
