@@ -72,7 +72,7 @@
                 <% @commits.each do |commit| %>
                     <% if commit.has_image? %>
                         <div class="span4" style="margin-bottom: 20px">
-                            <img src="<%= commit.file_url %>" alt="<%= commit.message %>" title="<%= commit.message %>" width="320" height="240" />
+                            <img src="<%= url_for commit.file_url %>" alt="<%= commit.message %>" title="<%= commit.message %>" width="320" height="240" />
                         </div>
                     <% end %>
                 <% end %>

@@ -4,6 +4,7 @@ require 'octokit'
 require 'pp'
 require 'mongo'
 require 'bson'
+require 'sinatra/url_for'
 
 class Commit
 	include DataMapper::Resource
