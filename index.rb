@@ -1,18 +1,35 @@
-require 'sinatra'
-require 'octokit'
-require 'pp'
-require 'mongo'
-require 'json'
-require 'bson'
-require 'sinatra/url_for'
+require "bundler"
+Bundler.require
 
-mongo_client  = Mongo::MongoClient.new('localhost', 27017)
-mongo_db      = mongo_client['lolcommits']
-mongo_grid    = Mongo::Grid.new(mongo_db)
+require "pp"
+require "uri"
+
+mongo_db = nil
+
+def get_connection
+  return @db_connection if @db_connection
+  db = URI.parse(ENV['MONGOHQ_URL'])
+  db_name = db.path.gsub(/^\//, '')
+  @db_connection = Mongo::Connection.new(db.host, db.port).db(db_name)
+  @db_connection.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+  @db_connection
+end
+
+configure :development do
+  mongo_db = Mongo::MongoClient.new('localhost', 27017).db('lolcommits')
+end
+
+configure :production do
+  mongo_db = get_connection
+end
+
+mongo_grid = Mongo::Grid.new(mongo_db)
 mongo_commits = mongo_db['commit']
+config = YAML.load(File.open('config.yaml'))
 
 get '/' do
 	@commits = mongo_commits.find()
+	@repo = config['github_repo']
 	erb :index
 end
 
@@ -23,6 +40,7 @@ get '/lol/:sha' do |sha|
 		response['Cache-Control'] = "public, max-age=60"
 		file.read
 	rescue Exception => e
+	  pp e
 		raise Sinatra::NotFound
 	end
 end
