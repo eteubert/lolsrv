@@ -39,8 +39,8 @@ get '/' do
 					mongo_commits.update({"_id" => commit["_id"]}, {"$set" => { "date" => date }})
 				end
 			rescue Exception => e
-				pp e
-				raise
+				# pp e
+				# raise
 			end
 		end
 	}
