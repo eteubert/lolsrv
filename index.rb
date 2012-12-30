@@ -28,8 +28,24 @@ mongo_commits = mongo_db['commit']
 config = YAML.load(File.open('config.yaml'))
 
 get '/' do
-	@commits = mongo_commits.find()
 	@repo = config['github_repo']
+
+	mongo_commits.find().each { |commit|
+		if !commit['date']
+			begin
+				puts "x"
+				if github_commit = Octokit.commit(@repo, commit['sha'])
+					date = DateTime.strptime(github_commit['commit']['author']['date']).to_time.to_i
+					mongo_commits.update({"_id" => commit["_id"]}, {"$set" => { "date" => date }})
+				end
+			rescue Exception => e
+				pp e
+				raise
+			end
+		end
+	}
+
+	@commits = mongo_commits.find().sort({date: -1})
 	erb :index
 end
 
