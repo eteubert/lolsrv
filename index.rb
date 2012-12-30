@@ -25,7 +25,7 @@ end
 
 mongo_grid = Mongo::Grid.new(mongo_db)
 mongo_commits = mongo_db['commit']
-config = YAML.load(File.open('config.yaml'))
+config = YAML.load(File.open('config.yml'))
 
 get '/' do
 	@commits = mongo_commits.find()
