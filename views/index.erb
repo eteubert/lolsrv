@@ -35,7 +35,7 @@
             <div class="row">
                 <% @commits.each do |commit| %>
                     <div class="span4" style="margin-bottom: 20px">
-                        <img src="<%= url_for "/lol/#{commit['sha']}" %>" width="640" height="480" />
+                            <img class="lolimage" src="<%= url_for "/lol/#{commit['sha']}" %>" width="640" height="480" />
                     </div>
                 <% end %>
             </div>
