@@ -30,7 +30,7 @@
                 <% @commits.each do |commit| %>
                     <div class="span4" style="margin-bottom: 20px">
                         <a href="https://github.com/<%= @repo %>/commit/<%= commit['sha'] %>" target="_blank">
-                            <img class="lolimage" src="<%= url_for "/lol/#{commit['sha']}" %>" width="640" height="480" title="<%= DateTime.strptime(commit['date'].to_s, "%s").strftime("%Y-%m-%d %H:%M:%S") %>"/>
+                            <img class="lolimage" src="<%= url_for "/lol/#{commit['sha']}" %>" width="640" height="480" title="<%= DateTime.strptime(commit['date'].to_s, "%s").strftime("%Y-%m-%d %H:%M:%S") if commit['date'] %>"/>
                         </a>
                     </div>
                 <% end %>
