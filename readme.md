@@ -5,6 +5,7 @@
 - [ruby](http://www.ruby-lang.org/) >=1.9.3
 - [mongodb](http://www.mongodb.org/)
 - The git repository in question has to be a public repository at [github](https://github.com/)
+- on your dev machine: [lolcommits](https://github.com/sebastianmarr/lolcommits) (forked, with `lolsrv` plugin)
 
 ## Setup
 
