@@ -1,2 +1,2 @@
 require './index.rb'
-run Sinatra::Application
+run LolServer
