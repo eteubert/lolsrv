@@ -1,3 +1,4 @@
 *.db
 public/img/commits
 config.yml
+output.log

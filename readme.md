@@ -10,7 +10,7 @@
 ## Setup
 
 ```
-cp config.example.yml config.yml 
+cp config.example.yml config.yml
 # edit config.yml, add the repository (e.g. eteubert/lolserver)
 
 bundle install
@@ -19,7 +19,15 @@ bundle install
 mongod
 
 # start sinatra app
-ruby index.rb
+rackup -p 9393
+```
+
+## Development
+There's some tools that are helpful for development.  Do not run guard and shotgun at the same time.
+
+```
+shotgun
+# Restarts the web server when ruby files are changed
 ```
 
 ## Usage
