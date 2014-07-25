@@ -80,7 +80,6 @@ class LolServer < Sinatra::Base
     begin
       file = settings.mongo_commits.find().sort({date: -1})
       file = settings.mongo_grid.get file.to_a.last['image_id']
-      response['Cache-Control'] = "public, max-age=60"
       file.read
     rescue Exception => e
       pp e
