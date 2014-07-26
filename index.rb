@@ -75,6 +75,19 @@ class LolServer < Sinatra::Base
 	erb :index
   end
 
+  get '/lol/latest' do
+    content_type 'image/jpg'
+    begin
+      file = settings.mongo_commits.find().sort({date: -1})
+      file = settings.mongo_grid.get file.to_a.last['image_id']
+      file.read
+    rescue Exception => e
+      pp e
+      raise Sinatra::NotFound
+   end
+  	
+  end
+
   get '/lol/:sha' do |sha|
 	content_type 'image/jpg'
 	begin
